@@ -59,7 +59,7 @@ if __name__ == "__main__":
        
         for categoryy in  category_dict :
             print(f"start scarping category {categoryy}")
-            for page in range(1,5):
+            for page in range(1,200):
                 print(f"page{page}")
                 database_manager.create_tables(models=[Category,Author, Post , Keywords , Keywords_to_post])
                 url =f"https://techcrunch.com/wp-json/tc/v1/magazine?page={page}&_embed=true&_envelope=true&categories={categoryy}"
