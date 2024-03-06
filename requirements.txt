@@ -1,2 +1,5 @@
 peewee==3.17.0
 psycopg2==2.9.9
+requests==2.31.0
+beautifulsoup4==4.12.3
+panda==2.2.1
