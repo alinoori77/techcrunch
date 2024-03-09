@@ -1,9 +1,20 @@
-import random
 import peewee
 import requests
 from peewee import IntegrityError
 from database_manager import DatabaseManager
-from time import sleep
+from datetime import timedelta
+
+
+from celery import Celery
+app = Celery('tasks', broker='amqp://localhost')
+
+app.conf.beat_schedule = {
+    'create-folder-every-2-minutes': {
+        'task': 'mainscraper.scrape',
+        'schedule': timedelta(hours=24),
+    },
+}
+
 
 import sample_settings
 
@@ -51,7 +62,9 @@ class Keywords_to_post(peewee.Model):
     class Meta:
         database = database_manager.db
 
-if __name__ == "__main__":
+
+@app.task
+def scrape():
 
     try:
         
